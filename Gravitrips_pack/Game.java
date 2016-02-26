@@ -1,4 +1,4 @@
-package homeworks.javaguru_homeworks.Gravitrips_pack;
+package javaGuru.javaguru_homeworks.Gravitrips_pack;
 
 /**
  * Created by Edwin on 2016.02.22..
@@ -24,28 +24,58 @@ public class Game {
         for (int i = 0; i < 6; i++) {
             System.out.println("");
             for (int j = 0; j < 7; j++) {
-                System.out.print(Field[i][j]);
+                System.out.print(Field[i][j] + " ");
             }
         }
+        System.out.println("");
     }
 
-    public static boolean isfirstPlayerTurn(int turnCount) {
-        boolean firstPlayerTurn;
-        if (turnCount % 2 == 0) {
-            firstPlayerTurn = true;
-        } else {
-            firstPlayerTurn = false;
-        }
-        return firstPlayerTurn;
-    }
 
-    public static boolean checkField(String[][] Field) {
-        boolean victory = false;
+    public static boolean checkFieldX(String[][] Field) {
+        boolean endOfGame = false;
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
-
+                if ("X".equals(Field[i][j]) && "X".equals(Field[i][j + 1]) && "X".equals(Field[i][j + 2]) && "X".equals(Field[i][j + 3])) {
+                    endOfGame = true;
+                }
             }
         }
-        return victory;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 7; j++) {
+                if ("X".equals(Field[i][j]) && "X".equals(Field[i + 1][j]) && "X".equals(Field[i + 2][j]) && "X".equals(Field[i + 3][j])) {
+                    endOfGame = true;
+                }
+            }
+        }
+        return endOfGame;
+
+    }
+
+    public static boolean checkFieldO(String[][] Field) {
+        boolean endOfGame = false;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ("O".equals(Field[i][j]) && "O".equals(Field[i][j + 1]) && "O".equals(Field[i][j + 2]) && "O".equals(Field[i][j + 3])) {
+                    endOfGame = true;
+                }
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 7; j++) {
+                if ("O".equals(Field[i][j]) && "O".equals(Field[i + 1][j]) && "O".equals(Field[i + 2][j]) && "O".equals(Field[i + 3][j])) {
+                    endOfGame = true;
+                }
+            }
+        }
+        return endOfGame;
+
+    }
+
+    public static boolean status() {
+        boolean end = false;
+        if (checkFieldO(gameField) || checkFieldX(gameField)) {
+            end = true;
+        }
+        return end;
     }
 }
