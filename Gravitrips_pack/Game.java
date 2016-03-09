@@ -1,81 +1,111 @@
-package javaGuru.javaguru_homeworks.Gravitrips_pack;
+package Gravitrips_pack;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by Edwin on 2016.02.22..
  */
 public class Game {
-    static int turnCount;
-    static String[][] gameField = new String[6][7];
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private int turnCount;
 
     public Game() {
 
     }
 
-    public static String[][] createGameField(String[][] Field) {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
-                Field[i][j] = ".";
+    public String askForPlayers() throws IOException {
+        String answer = " ";
+        boolean loop = true;
+        String decision = "";
+        do {
+            decision = reader.readLine();
+            switch (decision) {
+                case "1": {
+                    answer = "0";
+                    loop = false;
+                    break;
+
+                }
+                case "2": {
+                    answer = "1";
+                    loop = false;
+                    break;
+                }
+                case "3": {
+                    answer = "2";
+                    loop = false;
+                    break;
+                }
+                default: {
+                    System.out.println("Wrong entry, try again");
+                }
+
             }
-        }
-        return Field;
+        } while (loop);
+        return answer;
     }
 
-    public static void printField(String[][] Field) {
-        for (int i = 0; i < 6; i++) {
-            System.out.println("");
-            for (int j = 0; j < 7; j++) {
-                System.out.print(Field[i][j] + " ");
+    public void createPlayers(String answer) {
+        switch (answer) {
+            case "0": {
+                Player humPlayer = new Player();
+                Player humPlayer2 = new Player();
+                break;
+            }
+            case "1": {
+                Player humPlayer = new Player();
+                PlayerAi compPlayer = new PlayerAi();
+                break;
+            }
+            case "2": {
+                PlayerAi compPlayer = new PlayerAi();
+                PlayerAi compPlayer2 = new PlayerAi();
             }
         }
-        System.out.println("");
     }
 
 
-    public static boolean checkFieldX(String[][] Field) {
-        boolean endOfGame = false;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 4; j++) {
-                if ("X".equals(Field[i][j]) && "X".equals(Field[i][j + 1]) && "X".equals(Field[i][j + 2]) && "X".equals(Field[i][j + 3])) {
-                    endOfGame = true;
+    public boolean status(boolean fieldAnswer) {
+        return fieldAnswer;
+    }
+
+    public void menuOptions(){
+        System.out.println("Choose next option");
+        System.out.println("1 - Play a new game");
+        System.out.println("2 - Show rules");
+        System.out.println("3 - Exit");
+    }
+
+    public void menu() throws IOException {
+        menuOptions();
+        String firstEntry = "";
+        boolean loop = true;
+        do {
+            firstEntry = reader.readLine();
+            switch (firstEntry) {
+                case "1": {
+                    createPlayers(askForPlayers());
+                    loop = false;
+                    // vizov menju igri
+                    break;
+                }
+                case "2": {
+                    // vizov opisanija igri
+                    loop = false;
+                    break;
+                }
+                case "3":{
+                    System.out.println("Bye");
+                }
+                default:{
+                    System.out.println("Wrong entry");
+                    menuOptions();
                 }
             }
         }
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 7; j++) {
-                if ("X".equals(Field[i][j]) && "X".equals(Field[i + 1][j]) && "X".equals(Field[i + 2][j]) && "X".equals(Field[i + 3][j])) {
-                    endOfGame = true;
-                }
-            }
-        }
-        return endOfGame;
+        while (loop);
 
-    }
-
-    public static boolean checkFieldO(String[][] Field) {
-        boolean endOfGame = false;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 4; j++) {
-                if ("O".equals(Field[i][j]) && "O".equals(Field[i][j + 1]) && "O".equals(Field[i][j + 2]) && "O".equals(Field[i][j + 3])) {
-                    endOfGame = true;
-                }
-            }
-        }
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 7; j++) {
-                if ("O".equals(Field[i][j]) && "O".equals(Field[i + 1][j]) && "O".equals(Field[i + 2][j]) && "O".equals(Field[i + 3][j])) {
-                    endOfGame = true;
-                }
-            }
-        }
-        return endOfGame;
-
-    }
-
-    public static boolean status() {
-        boolean end = false;
-        if (checkFieldO(gameField) || checkFieldX(gameField)) {
-            end = true;
-        }
-        return end;
     }
 }

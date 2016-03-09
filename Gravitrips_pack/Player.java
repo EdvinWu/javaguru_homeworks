@@ -1,43 +1,64 @@
-package javaGuru.javaguru_homeworks.Gravitrips_pack;
+package Gravitrips_pack;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 
 /**
  * Created by Edwin on 2016.02.22..
  */
 public class Player {
-    public static boolean PlayerWon = false;
+    private int turnCount;
+
+
+    /*public int getTurnCount() {
+        return turnCount;
+    }*/
+
+
 
     public Player() {
 
     }
 
-    public static boolean isfirstPlayerTurn(int turnCount) {
+    public boolean isfirstPlayerTurn() {
         boolean firstPlayerTurn;
         firstPlayerTurn = turnCount % 2 == 0;
         return firstPlayerTurn;
     }
 
-    public static String[][] makeTurn(String[][] mas) throws IOException {
+    public void makeTurn(String[][] Field) throws IOException {
+        boolean turnLoop = false;
+        int i = 5;
+        int j = enterAndCheck();
+        do {
+
+            if (j < 0) {
+                System.out.println("");
+                System.out.println("This column is full");
+            } else if (!("X").equals(Field[i][j]) && (!("O").equals(Field[i][j]))) {
+                if (isfirstPlayerTurn()) {
+                    Field[i][j] = "X";
+                    turnCount++;
+                    turnLoop = true;
+                } else{
+                    Field[i][j]="O";
+                    turnCount++;
+                    turnLoop =true;
+                }
+            }
+            i--;
+        } while (!turnLoop);
+
+    }
+    public int enterAndCheck() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int i;
         int j;
         do {
-            i = Integer.parseInt(reader.readLine()) - 1;
-            j = Integer.parseInt(reader.readLine()) - 1;
-        }
-        while ("X".equals(mas[i][j]) || "O".equals(mas[i][j]));
-
-        if (isfirstPlayerTurn(Game.turnCount)) {
-            mas[i][j] = "X";
-        } else {
-            mas[i][j] = "O";
-        }
-        Game.turnCount++;
-        return mas;
+            System.out.println("Enter a column Number: 1-6");
+            j = Integer.parseInt(reader.readLine());
+        } while (j < 0 || j > 6);
+        return j;
     }
 
 }
