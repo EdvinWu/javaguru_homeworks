@@ -1,23 +1,27 @@
-package Gravitrips_pack;
+package javaguru_homeworks.Gravitrips_pack;
+
+
+import static javaguru_homeworks.Gravitrips_pack.Chips.*;
 
 /**
  * Created by Edwin on 2016.03.07..
  */
 public class GameField {
-    private String[][] gameField = new String[6][7];
+    private Chips[][] gameField = new Chips[6][7];
+    private final int WIN_STATE = 4;
 
-    public String[][] getGameField() {
+    public Chips[][] getGameField() {
         return gameField;
     }
 
-    public void setGameField(String[][] gameField) {
+    public void setGameField(Chips[][] gameField) {
         this.gameField = gameField;
     }
 
     public void createGameField() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                gameField[i][j] = ".";
+                gameField[i][j] = EMPTY;
             }
         }
 
@@ -34,91 +38,132 @@ public class GameField {
     }
 
 
-    public boolean checkFieldX() {
-        boolean checkResult = false;
+    public boolean verticalCheckO() {
+        for (int i = 0; i < 7; i++) {
+            if (checkSingleColumnO(i)) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    public boolean checkSingleColumnO(int j) {
+        int count = 0;
         for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 4; j++) {
-                if ("X".equals(gameField[i][j]) && "X".equals(gameField[i][j + 1]) && "X".equals(gameField[i][j + 2]) && "X".equals(gameField[i][j + 3])) {
-                    checkResult = true;
-                }
+            if (gameField[i][j] == O) {
+                count++;
+            } else {
+                count = 0;
+            }
+            if (count == WIN_STATE) {
+                return true;
             }
         }
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 7; j++) {
-                if ("X".equals(gameField[i][j]) && "X".equals(gameField[i + 1][j]) && "X".equals(gameField[i + 2][j]) && "X".equals(gameField[i + 3][j])) {
-                    checkResult = true;
-                }
+        return false;
+    }
+
+    public boolean verticalCheckX() {
+        for (int j = 0; j < 7; j++) {
+            if (checkSingleColumnX(j)) {
+                return true;
             }
         }
-        return checkResult;
+
+        return false;
 
     }
 
-    public boolean checkFieldO() {
-        boolean checkResult = false;
+    public boolean checkSingleColumnX(int j) {
+        int count = 0;
         for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 4; j++) {
-                if ("O".equals(gameField[i][j]) && "O".equals(gameField[i][j + 1]) && "O".equals(gameField[i][j + 2]) && "O".equals(gameField[i][j + 3])) {
-                    checkResult = true;
-                }
+            if (gameField[i][j] == X) {
+                count++;
+            } else {
+                count = 0;
+            }
+            if (count == WIN_STATE) {
+                return true;
             }
         }
-        for (int i = 0; i < 4; i++) {
+        return false;
+    }
+
+    public boolean checkSingleRowX(int i) {
+        int count = 0;
+        for (int j = 0; j < 7; j++) {
+            if (gameField[i][j] == X) {
+                count++;
+            } else {
+                count = 0;
+            }
+
+            if (count == WIN_STATE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean horizontalCheckX() {
+        for (int i = 0; i < 6; i++) {
+            if (checkSingleRowX(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkSingleRowO(int i) {
+        int count = 0;
+        for (int j = 0; j < 7; j++) {
+            if (gameField[i][j] == O) {
+                count++;
+            } else {
+                count = 0;
+            }
+
+            if (count == WIN_STATE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean horizontalCheckO() {
+        for (int i = 0; i < 6; i++) {
+            if (checkSingleRowO(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean checkDraw() {
+        boolean result = true;
+        for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                if ("O".equals(gameField[i][j]) && "O".equals(gameField[i + 1][j]) && "O".equals(gameField[i + 2][j]) && "O".equals(gameField[i + 3][j])) {
-                    checkResult = true;
+                if (EMPTY == (gameField[i][j])) {
+                    result = false;
                 }
             }
         }
-        return checkResult;
-
+        return result;
     }
 
-    public boolean leftToRightDiagCheckX() {
-        boolean checkResult = false;
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                if ("X".equals(gameField[i][j]) && "X".equals(gameField[i + 1][j + 1]) && "X".equals(gameField[i - 2][j + 2]) && "X".equals(gameField[i + 3][j + 3])) {
-                    checkResult = true;
-                }
-            }
-        }
-        for (int i = 5; i > 2; i--) {
-            for (int j = 6; j > 4; j--) {
-                if ("X".equals(gameField[i][j]) && "X".equals(gameField[i - 1][j - 1]) && "X".equals(gameField[i - 2][j - 2]) && "X".equals(gameField[i - 3][j - 3])) {
-                    checkResult = true;
-                }
-            }
-        }
-        return checkResult;
-    }
-
-    public boolean leftToRightDiagCheckO() {
-        boolean checkResult = false;
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                if ("O".equals(gameField[i][j]) && "O".equals(gameField[i + 1][j + 1]) && "O".equals(gameField[i + 2][j + 2]) && "O".equals(gameField[i + 3][j + 3])) {
-                    checkResult = true;
-                }
-            }
-        }
-        for (int i = 5; i > 2; i--) {
-            for (int j = 6; j > 4; j--) {
-                if ("O".equals(gameField[i][j]) && "O".equals(gameField[i - 1][j - 1]) && "O".equals(gameField[i - 2][j - 2]) && "O".equals(gameField[i - 3][j - 3])) {
-                    checkResult = true;
-                }
-            }
-        }
-        return checkResult;
-    }
-
-    public boolean anyConditionMet(){
-        boolean result = false;
-        if (checkFieldO() || checkFieldX() || leftToRightDiagCheckO() || leftToRightDiagCheckX()){
-            result = true;
+   /* public String anyWinConditionMet() {
+        String result = "";
+        if (checkFieldX() || leftToRightDiagCheckX()) {
+            result = "1st";
+        } else if (leftToRightDiagCheckO()) {
+            result = "2nd";
+        } else if (checkDraw()) {
+            result = "draw";
         }
 
         return result;
-    }
+    }*/
 
 }

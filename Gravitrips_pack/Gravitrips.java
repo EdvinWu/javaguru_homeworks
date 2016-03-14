@@ -1,4 +1,6 @@
-package Gravitrips_pack;
+package javaguru_homeworks.Gravitrips_pack;
+
+
 
 
 import java.io.IOException;
@@ -8,12 +10,16 @@ import java.io.IOException;
  */
 public class Gravitrips {
     public static void main(String[] args) throws IOException {
-        Game igra = new Game();
-        igra.askForPlayers();
-        GameField pole = new GameField();
-        pole.createGameField();
-        Player igrok = new Player();
-        igrok.makeTurn(pole.getGameField());
-        pole.printField();
+        Game game = new Game();
+        GameField field = new GameField();
+        HumanPlayer igrok = new HumanPlayer();
+        field.createGameField();
+        field.printField();
+        igrok.makeTurn(field.getGameField());
+        igrok.makeTurn(field.getGameField());
+        igrok.makeTurn(field.getGameField());
+        igrok.makeTurn(field.getGameField());
+        field.printField();
+        System.out.println(field.verticalCheckX());
     }
 }

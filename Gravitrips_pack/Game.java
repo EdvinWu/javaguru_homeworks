@@ -1,4 +1,4 @@
-package Gravitrips_pack;
+package javaguru_homeworks.Gravitrips_pack;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,12 +50,12 @@ public class Game {
     public void createPlayers(String answer) {
         switch (answer) {
             case "0": {
-                Player humPlayer = new Player();
-                Player humPlayer2 = new Player();
+                HumanPlayer humPlayer = new HumanPlayer();
+                HumanPlayer humPlayer2 = new HumanPlayer();
                 break;
             }
             case "1": {
-                Player humPlayer = new Player();
+                HumanPlayer humPlayer = new HumanPlayer();
                 PlayerAi compPlayer = new PlayerAi();
                 break;
             }
@@ -67,8 +67,26 @@ public class Game {
     }
 
 
-    public boolean status(boolean fieldAnswer) {
-        return fieldAnswer;
+    public boolean status(String fieldAnswer) {
+        return fieldAnswer.equals("1st") || fieldAnswer.equals("2nd") || fieldAnswer.equals("draw");
+
+    }
+
+    public void textStatus(String fieldAnswer){
+        switch (fieldAnswer){
+            case "1st":{
+                System.out.println("Congratulations 1st HumanPlayer won");
+                break;
+            }
+            case "2nd":{
+                System.out.println("Congratulations 2nd HumanPlayer won");
+                break;
+            }
+            case "draw":{
+                System.out.println("Friendship wins - Game is draw");
+                break;
+            }
+        }
     }
 
     public void menuOptions(){
@@ -76,6 +94,14 @@ public class Game {
         System.out.println("1 - Play a new game");
         System.out.println("2 - Show rules");
         System.out.println("3 - Exit");
+    }
+
+    public void gameDescription(){
+        System.out.println("Players make turn after each other");
+        System.out.println("first player claimed 4 X(first player) or O (second player)");
+        System.out.println("In row, column or diagonal - wins.");
+        System.out.println("Turn is similar to Tetris.");
+        System.out.println("");
     }
 
     public void menu() throws IOException {
