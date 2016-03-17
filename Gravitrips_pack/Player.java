@@ -7,5 +7,4 @@ import java.io.IOException;
  */
 interface Player {
     void makeTurn(Chips[][] Field) throws IOException;
-    boolean isFirstPlayerTurn();
 }

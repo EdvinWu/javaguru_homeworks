@@ -10,16 +10,28 @@ import static javaguru_homeworks.Gravitrips_pack.Chips.*;
  * Created by Edwin on 2016.02.22..
  */
 public class HumanPlayer implements Player {
-    private int turnCount;
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-
-    public int getTurnCount() {
-        return turnCount;
+    public Chips getChip() {
+        return chip;
     }
 
+    private final Chips chip;
 
-    public HumanPlayer() {
 
+    public HumanPlayer(String chipType) {
+        switch (chipType) {
+            case "1": {
+                chip = X;
+                break;
+            }
+            case "2":{
+                chip = O;
+                break;
+            }
+            default:
+                chip = X;
+        }
     }
 
     @Override
@@ -32,16 +44,10 @@ public class HumanPlayer implements Player {
             if (j < 0) {
                 System.out.println("");
                 System.out.println("This column is full");
-            } else if (EMPTY == (Field[i][j])){
-                if (isFirstPlayerTurn()) {
-                    Field[i][j] = X;
-                    turnCount++;
-                    turnLoop = true;
-                } else {
-                    Field[i][j] = X;
-                    turnCount++;
-                    turnLoop = true;
-                }
+                j = enterAndCheck();
+            } else if (EMPTY == (Field[i][j])) {
+                Field[i][j] = chip;
+                turnLoop = true;
             }
             i--;
         } while (!turnLoop);
@@ -49,7 +55,6 @@ public class HumanPlayer implements Player {
     }
 
     public int enterAndCheck() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int j;
         do {
             System.out.println("Enter a column Number: 1-6");
@@ -59,10 +64,5 @@ public class HumanPlayer implements Player {
     }
 
 
-    @Override
-    public boolean isFirstPlayerTurn() {
-        return turnCount % 2 == 0;
-
-    }
 }
 

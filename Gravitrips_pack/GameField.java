@@ -142,28 +142,28 @@ public class GameField {
 
 
     public boolean checkDraw() {
-        boolean result = true;
+        int count = 0;
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                if (EMPTY == (gameField[i][j])) {
-                    result = false;
+                if (gameField[i][j] != EMPTY) {
+                    count++;
                 }
             }
         }
-        return result;
+        return count == 42;
     }
 
-   /* public String anyWinConditionMet() {
+
+    public String anyWinConditionMet() {
         String result = "";
-        if (checkFieldX() || leftToRightDiagCheckX()) {
+        if (verticalCheckX() || horizontalCheckX()) {
             result = "1st";
-        } else if (leftToRightDiagCheckO()) {
+        } else if (verticalCheckO() || horizontalCheckO()) {
             result = "2nd";
         } else if (checkDraw()) {
             result = "draw";
         }
-
         return result;
-    }*/
+    }
 
 }

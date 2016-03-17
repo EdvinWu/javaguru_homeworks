@@ -9,16 +9,30 @@ import static javaguru_homeworks.Gravitrips_pack.Chips.*;
 /**
  * Created by Edwin on 2016.02.23..
  */
-public class PlayerAi implements Player{
-    private int turnCount;
+public class PlayerAi implements Player {
+    private final Chips chip;
     private Random random = new Random();
 
 
-    public int getTurnCount() {
-        return turnCount;
+    public Chips getChip() {
+        return chip;
     }
 
 
+    public PlayerAi(String chipType) {
+        switch (chipType) {
+            case "1": {
+                chip = X;
+                break;
+            }
+            case "2":{
+                chip = O;
+                break;
+            }
+            default:
+                chip = X;
+        }
+    }
 
     @Override
     public void makeTurn(Chips[][] Field) throws IOException {
@@ -29,17 +43,12 @@ public class PlayerAi implements Player{
 
             if (j < 0) {
                 j = random.nextInt(6);
-            } else if (!("X").equals(Field[i][j]) && (!("O").equals(Field[i][j]))) {
-                Field[i][j] = O;
+            } else if ((Field[i][j]) == EMPTY) {
+                Field[i][j] = chip;
                 turnLoop = true;
             }
             i--;
         } while (!turnLoop);
     }
 
-
-    @Override
-    public boolean isFirstPlayerTurn() {
-        return turnCount % 2 == 0;
-    }
 }
