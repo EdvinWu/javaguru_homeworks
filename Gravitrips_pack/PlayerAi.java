@@ -19,21 +19,9 @@ public class PlayerAi implements Player {
     }
 
 
-    public PlayerAi(String chipType) {
-        switch (chipType) {
-            case "1": {
-                chip = X;
-                break;
-            }
-            case "2":{
-                chip = O;
-                break;
-            }
-            default:
-                chip = X;
-        }
+    public PlayerAi(Chips chip) {
+        this.chip = chip;
     }
-
     @Override
     public void makeTurn(Chips[][] Field) throws IOException {
         boolean turnLoop = false;

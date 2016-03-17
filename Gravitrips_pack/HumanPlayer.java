@@ -16,34 +16,24 @@ public class HumanPlayer implements Player {
         return chip;
     }
 
-    private final Chips chip;
+    private Chips chip;
 
 
-    public HumanPlayer(String chipType) {
-        switch (chipType) {
-            case "1": {
-                chip = X;
-                break;
-            }
-            case "2":{
-                chip = O;
-                break;
-            }
-            default:
-                chip = X;
-        }
+    public HumanPlayer(Chips chip) {
+        this.chip = chip;
     }
 
     @Override
-    public void makeTurn(Chips[][] Field) throws IOException {
+    public void makeTurn(Chips Field[][]) throws IOException {
         boolean turnLoop = false;
         int i = 5;
         int j = enterAndCheck();
         do {
 
-            if (j < 0) {
+            if (i < 0) {
                 System.out.println("");
                 System.out.println("This column is full");
+                i = 6;
                 j = enterAndCheck();
             } else if (EMPTY == (Field[i][j])) {
                 Field[i][j] = chip;
@@ -51,7 +41,6 @@ public class HumanPlayer implements Player {
             }
             i--;
         } while (!turnLoop);
-
     }
 
     public int enterAndCheck() throws IOException {
@@ -62,7 +51,5 @@ public class HumanPlayer implements Player {
         } while (j < 0 || j > 6);
         return j;
     }
-
-
 }
 

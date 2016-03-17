@@ -11,71 +11,9 @@ import static javaguru_homeworks.Gravitrips_pack.Chips.*;
  */
 public class Game {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private int turnCount;
-
-    public Game() {
-
-    }
-
-    public String askForPlayers() throws IOException {
-        String answer = " ";
-        boolean loop = true;
-        String decision = "";
-        do {
-            decision = reader.readLine();
-            switch (decision) {
-                case "1": {
-                    answer = "0";
-                    loop = false;
-                    break;
-
-                }
-                case "2": {
-                    answer = "1";
-                    loop = false;
-                    break;
-                }
-                case "3": {
-                    answer = "2";
-                    loop = false;
-                    break;
-                }
-                default: {
-                    System.out.println("Wrong entry, try again");
-                }
-
-            }
-        } while (loop);
-        return answer;
-    }
-
-    public void createPlayers(String answer) throws IOException {
-        GameField pole = new GameField();
-        switch (answer) {
-            case "0": {
-                HumanPlayer humPlayer = new HumanPlayer(reader.readLine());
-                if (humPlayer.getChip()== O){
-                    HumanPlayer humPlayer2 = new HumanPlayer("1");
-                }else {
-                    HumanPlayer humPlayer2 = new HumanPlayer("2");
-                }
-                break;
-            }
-            case "1": {
-                HumanPlayer humPlayer = new HumanPlayer(reader.readLine());
-                if (humPlayer.getChip()== O){
-                    PlayerAi compPlayer = new PlayerAi("1");
-                }else {
-                    PlayerAi compPlayer = new PlayerAi("2");
-                }
-                break;
-            }
-            case "2": {
-                PlayerAi compPlayer = new PlayerAi("1");
-                PlayerAi compPlayer2 = new PlayerAi("2");
-            }
-        }
-    }
+    GameField pole = new GameField();
+    HumanPlayer player = new HumanPlayer(X);
+    PlayerAi playerai = new PlayerAi(O);
 
 
     public boolean boolStatus(String fieldAnswer) {
@@ -125,8 +63,7 @@ public class Game {
             firstEntry = reader.readLine();
             switch (firstEntry) {
                 case "1": {
-                    createPlayers(askForPlayers());
-                    loop = false;
+                    pve();
                     break;
                 }
                 case "2": {
@@ -136,6 +73,8 @@ public class Game {
                 }
                 case "3": {
                     System.out.println("Bye");
+                    loop = false;
+                    break;
                 }
                 default: {
                     System.out.println("Wrong entry");
@@ -146,9 +85,25 @@ public class Game {
         while (loop);
     }
 
-    public void gameRun(){
-        do{
+    public void pve() throws IOException {
+        pole.createGameField();
+        boolean loop = true;
+        do {
+            player.makeTurn(pole.getGameField());
+            pole.printField();
+            if (boolStatus(pole.anyWinConditionMet())) {
+                textStatus(pole.anyWinConditionMet());
+                loop = false;
+            }
+            playerai.makeTurn(pole.getGameField());
+            pole.printField();
+            if (boolStatus(pole.anyWinConditionMet())) {
+                textStatus(pole.anyWinConditionMet());
+                loop = false;
+            }
 
-        }while(!boolStatus())
+        } while (loop);
+        menu();
     }
+
 }
