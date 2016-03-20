@@ -1,16 +1,13 @@
-package javaguru_homeworks.Gravitrips_pack;
+package javaguru.gravitrips;
 
-/**
- * Created by Edwin on 2016.03.13..
- */
-public enum Chips {
+public enum Chip {
     X("X"),
     O("O"),
     EMPTY(".");
 
     private String name;
 
-    Chips(String name) {
+    Chip(String name) {
         this.name = name;
     }
 

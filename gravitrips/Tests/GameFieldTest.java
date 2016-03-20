@@ -1,24 +1,24 @@
-package javaguru_homeworks.Gravitrips_pack.Tests;
+package javaguru.gravitrips.tests;
 
 
-import javaguru_homeworks.Gravitrips_pack.Chips;
-import javaguru_homeworks.Gravitrips_pack.GameField;
+import javaguru.gravitrips.Chip;
+import javaguru.gravitrips.GameField;
 import org.junit.Test;
 
-import static javaguru_homeworks.Gravitrips_pack.Chips.*;
+import static javaguru.gravitrips.Chip.*;
 import static org.junit.Assert.*;
 
 
-/**
- * Created by Edwin on 2016.03.07..
- */
+
 public class GameFieldTest {
     GameField fieldForTest = new GameField();
+    private final int COLUMNS = 7;
+    private final int ROWS = 6;
 
 
     @Test
     public void testCheckDraw() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 testField[i][j] = O;
@@ -30,80 +30,80 @@ public class GameFieldTest {
 
     @Test
     public void testVerticalCheckO() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][0] = O;
         testField[2][0] = O;
         testField[3][0] = O;
         testField[0][0] = O;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.verticalCheckO());
+        assertEquals(true, fieldForTest.verticalCheck(O));
     }
 
 
     @Test
     public void testVerticalCheckO2() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][2] = O;
         testField[2][2] = O;
         testField[3][2] = O;
         testField[0][0] = O;
         fieldForTest.setGameField(testField);
-        assertEquals(false, fieldForTest.verticalCheckO());
+        assertEquals(false, fieldForTest.verticalCheck(O));
     }
 
 
     @Test
     public void testVerticalCheckX() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][4] = X;
         testField[2][4] = X;
         testField[3][4] = X;
         testField[0][4] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.verticalCheckX());
+        assertEquals(true, fieldForTest.verticalCheck(X));
     }
 
     @Test
     public void testVerticalCheckX2() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][4] = X;
         testField[2][2] = X;
         testField[3][2] = X;
         testField[0][2] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(false, fieldForTest.verticalCheckX());
+        assertEquals(false, fieldForTest.verticalCheck(X));
     }
 
     @Test
     public void testHorizontalCheckX() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][4] = X;
         testField[2][2] = X;
         testField[3][2] = X;
         testField[0][2] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(false, fieldForTest.horizontalCheckX());
+        assertEquals(false, fieldForTest.horizontalCheck(X));
     }
 
     @Test
     public void testHorizontalCheckX2() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][4] = X;
         testField[1][2] = X;
         testField[1][3] = X;
         testField[1][1] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.horizontalCheckX());
+        assertEquals(true, fieldForTest.horizontalCheck(X));
     }
     @Test
     public void testHorizontalCheckO() {
-        Chips[][] testField = new Chips[6][7];
+        Chip[][] testField = new Chip[ROWS][COLUMNS];
         testField[1][4] = O;
         testField[1][2] = O;
         testField[1][3] = O;
         testField[1][1] = O;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.horizontalCheckO());
+        assertEquals(true, fieldForTest.horizontalCheck(O));
     }
 }
 

@@ -1,4 +1,4 @@
-package javaGuru.javaguru_homeworks;
+package javaguru;
 
 import java.io.BufferedReader;
 import java.io.IOException;

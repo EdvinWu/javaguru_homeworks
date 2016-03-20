@@ -1,31 +1,29 @@
-package javaguru_homeworks.Gravitrips_pack;
+package javaguru.gravitrips;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static javaguru_homeworks.Gravitrips_pack.Chips.*;
+import static javaguru.gravitrips.Chip.*;
 
-/**
- * Created by Edwin on 2016.02.22..
- */
+
 public class HumanPlayer implements Player {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public Chips getChip() {
+    public Chip getChip() {
         return chip;
     }
 
-    private Chips chip;
+    private Chip chip;
 
 
-    public HumanPlayer(Chips chip) {
+    public HumanPlayer(Chip chip) {
         this.chip = chip;
     }
 
     @Override
-    public void makeTurn(Chips Field[][]) throws IOException {
-        boolean turnLoop = false;
+    public void makeTurn(Chip[][] field) {
+        boolean turnMade = false;
         int i = 5;
         int j = enterAndCheck();
         do {
@@ -35,19 +33,24 @@ public class HumanPlayer implements Player {
                 System.out.println("This column is full");
                 i = 6;
                 j = enterAndCheck();
-            } else if (EMPTY == (Field[i][j])) {
-                Field[i][j] = chip;
-                turnLoop = true;
+            } else if (EMPTY == (field[i][j])) {
+                field[i][j] = chip;
+                turnMade = true;
             }
             i--;
-        } while (!turnLoop);
+        } while (!turnMade);
     }
 
-    public int enterAndCheck() throws IOException {
+    public int enterAndCheck(){
         int j;
         do {
             System.out.println("Enter a column Number: 1-6");
-            j = Integer.parseInt(reader.readLine()) - 1;
+            try {
+                j = Integer.parseInt(reader.readLine()) - 1;
+            } catch (IOException e) {
+                e.printStackTrace();
+                j =0;
+        }
         } while (j < 0 || j > 6);
         return j;
     }

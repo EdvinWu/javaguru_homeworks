@@ -1,29 +1,26 @@
-package javaguru_homeworks.Gravitrips_pack;
+package javaguru.gravitrips;
 
 
-import java.io.IOException;
 import java.util.Random;
 
-import static javaguru_homeworks.Gravitrips_pack.Chips.*;
+import static javaguru.gravitrips.Chip.*;
 
-/**
- * Created by Edwin on 2016.02.23..
- */
+
 public class PlayerAi implements Player {
-    private final Chips chip;
+    private final Chip chip;
     private Random random = new Random();
 
 
-    public Chips getChip() {
+    public Chip getChip() {
         return chip;
     }
 
 
-    public PlayerAi(Chips chip) {
+    public PlayerAi(Chip chip) {
         this.chip = chip;
     }
     @Override
-    public void makeTurn(Chips[][] Field) throws IOException {
+    public void makeTurn(Chip[][] field) {
         boolean turnLoop = false;
         int i = 5;
         int j = random.nextInt(6);
@@ -31,8 +28,8 @@ public class PlayerAi implements Player {
 
             if (j < 0) {
                 j = random.nextInt(6);
-            } else if ((Field[i][j]) == EMPTY) {
-                Field[i][j] = chip;
+            } else if ((field[i][j]) == EMPTY) {
+                field[i][j] = chip;
                 turnLoop = true;
             }
             i--;
