@@ -2,6 +2,7 @@ package javaguru.gravitrips;
 
 
 import static javaguru.gravitrips.Chip.*;
+import static javaguru.gravitrips.GameResult.*;
 
 
 public class GameField {
@@ -18,13 +19,21 @@ public class GameField {
         this.gameField = gameField;
     }
 
-    public void createGameField() {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
+    public GameField() {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 gameField[i][j] = EMPTY;
             }
         }
 
+    }
+
+    public void cleanField(){
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                gameField[i][j] = EMPTY;
+            }
+        }
     }
 
     public void printField() {
@@ -38,23 +47,23 @@ public class GameField {
     }
 
 
-    public boolean verticalCheck(Chip chip) {
+    public boolean fieldCheck(Chip chip) {
         for (int i = 0; i < ROWS; i++) {
-            if (checkSingleColumn(i, chip)) {
+            if (checkSingleColumn(i, chip)|| checkSingleRow(i,chip)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean horizontalCheck(Chip chip) {
+    /*public boolean horizontalCheck(Chip chip) {
         for (int i = 0; i < ROWS; i++) {
             if (checkSingleRow(i, chip )) {
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
     public boolean checkSingleColumn(int j, Chip chip) {
         int count = 0;
@@ -103,16 +112,15 @@ public class GameField {
     }
 
 
-    public String anyWinConditionMet() {
-        String result = "";
-        if (verticalCheck(X) || horizontalCheck(X)) {
-            result = "1st";
-        } else if (verticalCheck(O) || horizontalCheck(O)) {
-            result = "2nd";
+    public GameResult anyWinConditionMet() {
+        if (fieldCheck(X)) {
+            return firstPlayerWon;
+        } else if (fieldCheck(O)) {
+            return secondPlayerWon;
         } else if (checkDraw()) {
-            result = "draw";
+            return gameIsDraw;
         }
-        return result;
+        return notFinished;
     }
 
 }

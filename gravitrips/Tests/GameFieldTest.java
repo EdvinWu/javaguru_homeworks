@@ -36,7 +36,7 @@ public class GameFieldTest {
         testField[3][0] = O;
         testField[0][0] = O;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.verticalCheck(O));
+        assertEquals(true, fieldForTest.fieldCheck(O));
     }
 
 
@@ -48,7 +48,7 @@ public class GameFieldTest {
         testField[3][2] = O;
         testField[0][0] = O;
         fieldForTest.setGameField(testField);
-        assertEquals(false, fieldForTest.verticalCheck(O));
+        assertEquals(false, fieldForTest.fieldCheck(O));
     }
 
 
@@ -60,7 +60,7 @@ public class GameFieldTest {
         testField[3][4] = X;
         testField[0][4] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.verticalCheck(X));
+        assertEquals(true, fieldForTest.fieldCheck(X));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class GameFieldTest {
         testField[3][2] = X;
         testField[0][2] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(false, fieldForTest.verticalCheck(X));
+        assertEquals(false, fieldForTest.fieldCheck(X));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class GameFieldTest {
         testField[3][2] = X;
         testField[0][2] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(false, fieldForTest.horizontalCheck(X));
+        assertEquals(false, fieldForTest.fieldCheck(X));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class GameFieldTest {
         testField[1][3] = X;
         testField[1][1] = X;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.horizontalCheck(X));
+        assertEquals(true, fieldForTest.fieldCheck(X));
     }
     @Test
     public void testHorizontalCheckO() {
@@ -103,7 +103,7 @@ public class GameFieldTest {
         testField[1][3] = O;
         testField[1][1] = O;
         fieldForTest.setGameField(testField);
-        assertEquals(true, fieldForTest.horizontalCheck(O));
+        assertEquals(true, fieldForTest.fieldCheck(O));
     }
 }
 
