@@ -66,10 +66,10 @@ public class GameFieldTest {
     @Test
     public void testVerticalCheckX2() {
         Chip[][] testField = new Chip[ROWS][COLUMNS];
-        testField[1][4] = X;
-        testField[2][2] = X;
-        testField[3][2] = X;
-        testField[0][2] = X;
+        testField[5][3] = X;
+        testField[4][4] = X;
+        testField[5][5] = X;
+        testField[5][6] = X;
         fieldForTest.setGameField(testField);
         assertEquals(false, fieldForTest.fieldCheck(X));
     }
@@ -77,10 +77,10 @@ public class GameFieldTest {
     @Test
     public void testHorizontalCheckX() {
         Chip[][] testField = new Chip[ROWS][COLUMNS];
-        testField[1][4] = X;
-        testField[2][2] = X;
-        testField[3][2] = X;
-        testField[0][2] = X;
+        testField[2][6] = X;
+        testField[3][6] = X;
+        testField[4][6] = X;
+        testField[5][5] = X;
         fieldForTest.setGameField(testField);
         assertEquals(false, fieldForTest.fieldCheck(X));
     }

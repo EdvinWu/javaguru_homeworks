@@ -44,7 +44,7 @@ public class HumanPlayer implements Player {
     public int enterAndCheck(){
         int j;
         do {
-            System.out.println("Enter a column Number: 1-6");
+            System.out.println("Enter a column Number: 1-7");
             try {
                 j = Integer.parseInt(reader.readLine()) - 1;
             } catch (IOException e) {

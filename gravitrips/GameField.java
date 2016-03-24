@@ -5,6 +5,7 @@ import static javaguru.gravitrips.Chip.*;
 import static javaguru.gravitrips.GameResult.*;
 
 
+
 public class GameField {
     private final int WIN_STATE = 4;
     private final int COLUMNS = 7;
@@ -28,7 +29,7 @@ public class GameField {
 
     }
 
-    public void cleanField(){
+    public void cleanField() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 gameField[i][j] = EMPTY;
@@ -48,12 +49,12 @@ public class GameField {
 
 
     public boolean fieldCheck(Chip chip) {
-        for (int i = 0; i < ROWS; i++) {
-            if (checkSingleColumn(i, chip)|| checkSingleRow(i,chip)) {
+        for (int i = 0; i <ROWS ; i++) {
+            if (checkSingleColumn(i, chip) || checkSingleRow(i, chip) ) {
                 return true;
             }
         }
-        return false;
+        return checkSingleColumn(6, chip);
     }
 
     /*public boolean horizontalCheck(Chip chip) {
@@ -96,7 +97,6 @@ public class GameField {
         }
         return false;
     }
-
 
 
     public boolean checkDraw() {
