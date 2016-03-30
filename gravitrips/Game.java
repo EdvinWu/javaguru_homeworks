@@ -22,28 +22,28 @@ public class Game {
             try {
                 userChoice = reader.readLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Something went wrong, please check your entry");
                 userChoice = "";
             }
             switch (userChoice) {
-                case "1": {
+                case "1":
                     player1 = new HumanPlayer(X);
                     player2 = new HumanPlayer(O);
                     ValidAnswer = true;
                     break;
-                }
-                case "2": {
+
+                case "2":
                     player1 = new HumanPlayer(X);
                     player2 = new PlayerAi(O);
                     ValidAnswer = true;
                     break;
-                }
-                case "3": {
+
+                case "3":
                     player1 = new PlayerAi(X);
                     player2 = new PlayerAi(O);
                     ValidAnswer = true;
                     break;
-                }
+
                 default:
                     System.out.printf("Wrong entry, please try again");
             }
@@ -53,20 +53,20 @@ public class Game {
 
     public boolean isWinner(GameResult fieldAnswer) {
         switch (fieldAnswer) {
-            case firstPlayerWon: {
+            case FIRST_PLAYER_WON:
                 System.out.println("Congratulations 1st Player won");
                 break;
-            }
-            case secondPlayerWon: {
+
+            case SECOND_PLAYER_WON:
                 System.out.println("Congratulations 2nd Player won");
                 break;
-            }
-            case gameIsDraw: {
+
+            case GAME_IS_DRAW:
                 System.out.println("Friendship wins - Game is draw");
                 break;
-            }
+
         }
-        return fieldAnswer == firstPlayerWon || fieldAnswer == secondPlayerWon || fieldAnswer == gameIsDraw;
+        return fieldAnswer == FIRST_PLAYER_WON || fieldAnswer == SECOND_PLAYER_WON || fieldAnswer == GAME_IS_DRAW;
 
     }
 
@@ -77,12 +77,14 @@ public class Game {
         System.out.println("2 - Show rules");
         System.out.println("3 - Exit");
     }
-    public void gameVariations(){
+
+    public void gameVariations() {
         System.out.println("Choose game mode ");
         System.out.println("1 - Player versus Player ");
         System.out.println("2 - Player versus Ai ");
         System.out.println("3 - Ai versus Ai");
     }
+
     public void gameDescription() {
         System.out.println("Players make turn after each other");
         System.out.println("first player claimed 4 X(first player) or O (second player)");
@@ -100,30 +102,30 @@ public class Game {
             try {
                 firstEntry = reader.readLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.printf("Something went wrong, please check your entry");
                 firstEntry = "10";
             }
             switch (firstEntry) {
-                case "1": {
+                case "1":
                     createPlayers();
                     pve();
                     noneOptionChosen = false;
                     break;
-                }
-                case "2": {
+
+                case "2":
                     gameDescription();
                     noneOptionChosen = false;
                     break;
-                }
-                case "3": {
+
+                case "3":
                     System.out.println("Bye");
                     noneOptionChosen = false;
                     break;
-                }
-                default: {
+
+                default:
                     System.out.println("Wrong entry");
                     menuOptions();
-                }
+
             }
         }
         while (noneOptionChosen);
@@ -131,26 +133,21 @@ public class Game {
 
     public void pve() {
         pole.cleanField();
-        boolean gameIsOver = false;
+        boolean gameIsOver;
         do {
-            if (oneTurnCycle(player1,player2)){
-                gameIsOver = true;
-            }
+            gameIsOver = oneTurn(player1, player2);
         } while (!gameIsOver);
         menu();
     }
 
-    public boolean oneTurnCycle(Player firstTurnPlayer,Player secondTurnPlayer){
-        firstTurnPlayer.makeTurn(pole.getGameField());
+    public boolean oneTurn(Player firstTurnPlayer, Player secondTurnPlayer) {
+        firstTurnPlayer.makeTurn(pole);
         pole.printField();
-        if (isWinner(pole.anyWinConditionMet())){
+        if (isWinner(pole.anyWinConditionMet())) {
             return true;
         }
-        secondTurnPlayer.makeTurn(pole.getGameField());
+        secondTurnPlayer.makeTurn(pole);
         pole.printField();
-        if (isWinner(pole.anyWinConditionMet())){
-            return true;
-        }
-        return false;
+        return isWinner(pole.anyWinConditionMet());
     }
 }

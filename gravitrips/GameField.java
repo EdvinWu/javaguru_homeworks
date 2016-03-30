@@ -49,12 +49,17 @@ public class GameField {
 
 
     public boolean fieldCheck(Chip chip) {
-        for (int i = 0; i <ROWS ; i++) {
-            if (checkSingleColumn(i, chip) || checkSingleRow(i, chip) ) {
+        for (int i = 0; i <COLUMNS ; i++) {
+            if (checkSingleColumn(i, chip)) {
                 return true;
             }
         }
-        return checkSingleColumn(6, chip);
+        for (int i = 0; i < ROWS; i++) {
+            if (checkSingleRow(i, chip )) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*public boolean horizontalCheck(Chip chip) {
@@ -100,27 +105,26 @@ public class GameField {
 
 
     public boolean checkDraw() {
-        int count = 0;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if (gameField[i][j] != EMPTY) {
-                    count++;
+                if (gameField[i][j] == EMPTY) {
+                    return false;
                 }
             }
         }
-        return count == 42;
+        return true;
     }
 
 
     public GameResult anyWinConditionMet() {
-        if (fieldCheck(X)) {
-            return firstPlayerWon;
+        if (fieldCheck(X) ) {
+            return FIRST_PLAYER_WON;
         } else if (fieldCheck(O)) {
-            return secondPlayerWon;
+            return SECOND_PLAYER_WON;
         } else if (checkDraw()) {
-            return gameIsDraw;
+            return GAME_IS_DRAW;
         }
-        return notFinished;
+        return NOT_FINISHED;
     }
 
 }

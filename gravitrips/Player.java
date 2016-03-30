@@ -2,5 +2,5 @@ package javaguru.gravitrips;
 
 
 interface Player {
-    void makeTurn(Chip[][] field);
+    void makeTurn(GameField pole);
 }

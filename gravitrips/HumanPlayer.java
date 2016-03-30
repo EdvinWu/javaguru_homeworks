@@ -22,8 +22,9 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public void makeTurn(Chip[][] field) {
+    public void makeTurn(GameField pole) {
         boolean turnMade = false;
+        Chip[][] field = pole.getGameField();
         int i = 5;
         int j = enterAndCheck();
         do {
@@ -41,16 +42,16 @@ public class HumanPlayer implements Player {
         } while (!turnMade);
     }
 
-    public int enterAndCheck(){
+    public int enterAndCheck() {
         int j;
         do {
             System.out.println("Enter a column Number: 1-7");
             try {
                 j = Integer.parseInt(reader.readLine()) - 1;
-            } catch (IOException e) {
-                e.printStackTrace();
-                j =0;
-        }
+            } catch (IOException | java.lang.NumberFormatException e) {
+                System.out.println("Something went wrong, check your entry");
+                j = -10;
+            }
         } while (j < 0 || j > 6);
         return j;
     }

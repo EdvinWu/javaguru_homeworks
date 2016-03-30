@@ -19,8 +19,9 @@ public class PlayerAi implements Player {
     }
 
     @Override
-    public void makeTurn(Chip[][] field) {
+    public void makeTurn(GameField pole ) {
         boolean turnLoop = false;
+        Chip[][] field = pole.getGameField();
         int i = 5;
         int j = random.nextInt(7);
         do {
