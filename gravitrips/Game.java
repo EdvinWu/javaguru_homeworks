@@ -3,6 +3,8 @@ package javaguru.gravitrips;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Random;
 
 import static javaguru.gravitrips.Chip.*;
 import static javaguru.gravitrips.GameResult.*;
@@ -11,13 +13,14 @@ import static javaguru.gravitrips.GameResult.*;
 public class Game {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private GameField pole = new GameField();
+    private UserInterface interfeis = new UserInterface();
     private Player player1;
     private Player player2;
 
     public void createPlayers() {
         String userChoice;
-        boolean ValidAnswer = false;
-        gameVariations();
+        boolean validAnswer = false;
+        interfeis.gameVariations();
         do {
             try {
                 userChoice = reader.readLine();
@@ -29,26 +32,26 @@ public class Game {
                 case "1":
                     player1 = new HumanPlayer(X);
                     player2 = new HumanPlayer(O);
-                    ValidAnswer = true;
+                    validAnswer = true;
                     break;
 
                 case "2":
                     player1 = new HumanPlayer(X);
                     player2 = new PlayerAi(O);
-                    ValidAnswer = true;
+                    validAnswer = true;
                     break;
 
                 case "3":
                     player1 = new PlayerAi(X);
                     player2 = new PlayerAi(O);
-                    ValidAnswer = true;
+                    validAnswer = true;
                     break;
 
                 default:
-                    System.out.printf("Wrong entry, please try again");
+                    System.out.println("Wrong entry, please try again");
             }
         }
-        while (!ValidAnswer);
+        while (!validAnswer);
     }
 
     public boolean isWinner(GameResult fieldAnswer) {
@@ -71,39 +74,16 @@ public class Game {
     }
 
 
-    public void menuOptions() {
-        System.out.println("Choose next option");
-        System.out.println("1 - Play a new game");
-        System.out.println("2 - Show rules");
-        System.out.println("3 - Exit");
-    }
-
-    public void gameVariations() {
-        System.out.println("Choose game mode ");
-        System.out.println("1 - Player versus Player ");
-        System.out.println("2 - Player versus Ai ");
-        System.out.println("3 - Ai versus Ai");
-    }
-
-    public void gameDescription() {
-        System.out.println("Players make turn after each other");
-        System.out.println("first player claimed 4 X(first player) or O (second player)");
-        System.out.println("In row, column or diagonal - wins.");
-        System.out.println("Turn is similar to Tetris.");
-        System.out.println("");
-        menu();
-    }
-
     public void menu() {
-        menuOptions();
+        interfeis.menuOptions();
         String firstEntry;
         boolean noneOptionChosen = true;
         do {
             try {
                 firstEntry = reader.readLine();
             } catch (IOException e) {
-                System.out.printf("Something went wrong, please check your entry");
-                firstEntry = "10";
+                System.out.println("Something went wrong, please check your entry");
+                firstEntry = "";
             }
             switch (firstEntry) {
                 case "1":
@@ -113,7 +93,8 @@ public class Game {
                     break;
 
                 case "2":
-                    gameDescription();
+                    interfeis.gameDescription();
+                    menu();
                     noneOptionChosen = false;
                     break;
 
@@ -124,7 +105,7 @@ public class Game {
 
                 default:
                     System.out.println("Wrong entry");
-                    menuOptions();
+                    interfeis.menuOptions();
 
             }
         }
@@ -150,4 +131,15 @@ public class Game {
         pole.printField();
         return isWinner(pole.anyWinConditionMet());
     }
+
+    /*public void debug(){
+        Chip[][] testField = new Chip[6][7];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                testField[i][j] = O;
+            }
+        }
+        pole.setGameField(testField);
+        System.out.println(Arrays.toString(pole.getColumn(2)));
+    }*/
 }

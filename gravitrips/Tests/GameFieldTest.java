@@ -5,9 +5,10 @@ import javaguru.gravitrips.Chip;
 import javaguru.gravitrips.GameField;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static javaguru.gravitrips.Chip.*;
 import static org.junit.Assert.*;
-
 
 
 public class GameFieldTest {
@@ -95,6 +96,7 @@ public class GameFieldTest {
         fieldForTest.setGameField(testField);
         assertEquals(true, fieldForTest.fieldCheck(X));
     }
+
     @Test
     public void testHorizontalCheckO() {
         Chip[][] testField = new Chip[ROWS][COLUMNS];
@@ -105,6 +107,18 @@ public class GameFieldTest {
         fieldForTest.setGameField(testField);
         assertEquals(true, fieldForTest.fieldCheck(O));
     }
+
+    @Test
+    public void testGetColumn() {
+        Chip[][] testField = new Chip[6][7];
+        testField[1][2] = O;
+        testField[2][2] = O;
+        testField[4][2] = X;
+        testField[5][2] = X;
+        fieldForTest.setGameField(testField);
+        System.out.println(Arrays.toString(fieldForTest.getColumn(2)));
+    }
 }
+
 
 

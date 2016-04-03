@@ -5,7 +5,6 @@ import static javaguru.gravitrips.Chip.*;
 import static javaguru.gravitrips.GameResult.*;
 
 
-
 public class GameField {
     private final int WIN_STATE = 4;
     private final int COLUMNS = 7;
@@ -21,12 +20,7 @@ public class GameField {
     }
 
     public GameField() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                gameField[i][j] = EMPTY;
-            }
-        }
-
+        cleanField();
     }
 
     public void cleanField() {
@@ -35,6 +29,15 @@ public class GameField {
                 gameField[i][j] = EMPTY;
             }
         }
+    }
+
+    public Chip[] getColumn(int columnNo) {
+        Chip[] column = new Chip[ROWS];
+        Chip[][] gameField = getGameField();
+        for (int i = 0; i < ROWS; i++) {
+            column[i] = gameField[i][columnNo];
+        }
+        return column;
     }
 
     public void printField() {
@@ -49,13 +52,13 @@ public class GameField {
 
 
     public boolean fieldCheck(Chip chip) {
-        for (int i = 0; i <COLUMNS ; i++) {
+        for (int i = 0; i < COLUMNS; i++) {
             if (checkSingleColumn(i, chip)) {
                 return true;
             }
         }
         for (int i = 0; i < ROWS; i++) {
-            if (checkSingleRow(i, chip )) {
+            if (checkSingleRow(i, chip)) {
                 return true;
             }
         }
@@ -117,7 +120,7 @@ public class GameField {
 
 
     public GameResult anyWinConditionMet() {
-        if (fieldCheck(X) ) {
+        if (fieldCheck(X)) {
             return FIRST_PLAYER_WON;
         } else if (fieldCheck(O)) {
             return SECOND_PLAYER_WON;
