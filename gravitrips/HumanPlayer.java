@@ -21,7 +21,7 @@ public class HumanPlayer implements Player {
         this.chip = chip;
     }
 
-    @Override
+  /*  @Override
     public void makeTurn(GameField pole) {
         boolean turnMade = false;
         Chip[][] field = pole.getGameField();
@@ -33,13 +33,22 @@ public class HumanPlayer implements Player {
                 System.out.println("");
                 System.out.println("This column is full");
                 i = 6;
-                j = enterAndCheck();
+                j = enterAndheck();
             } else if (EMPTY == (field[i][j])) {
                 field[i][j] = chip;
                 turnMade = true;
             }
             i--;
         } while (!turnMade);
+    }*/
+
+    @Override
+    public void makeTurn(GameField pole){
+        if(pole.(enterAndCheck())== null){
+            System.out.println("This column is full");
+
+        }
+
     }
 
     public int enterAndCheck() {

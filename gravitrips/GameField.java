@@ -107,6 +107,7 @@ public class GameField {
     }
 
 
+
     public boolean checkDraw() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -130,4 +131,22 @@ public class GameField {
         return NOT_FINISHED;
     }
 
+
+    public boolean fillCell(int j, Chip chip){
+        boolean cellFilled = false;
+        int i = 5;
+        do {
+
+            if (i < 0) {
+                System.out.println("");
+                System.out.println("This column is full");
+                
+            } else if (EMPTY == (gameField[i][j])) {
+                gameField[i][j] = chip;
+                cellFilled = true;
+            }
+            i--;
+        } while (!cellFilled);
+    }
 }
+
