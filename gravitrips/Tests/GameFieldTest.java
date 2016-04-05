@@ -108,16 +108,6 @@ public class GameFieldTest {
         assertEquals(true, fieldForTest.fieldCheck(O));
     }
 
-    @Test
-    public void testGetColumn() {
-        Chip[][] testField = new Chip[6][7];
-        testField[1][2] = O;
-        testField[2][2] = O;
-        testField[4][2] = X;
-        testField[5][2] = X;
-        fieldForTest.setGameField(testField);
-        System.out.println(Arrays.toString(fieldForTest.getColumn(2)));
-    }
 }
 
 

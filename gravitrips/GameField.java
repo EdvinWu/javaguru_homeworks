@@ -1,6 +1,7 @@
 package javaguru.gravitrips;
 
 
+
 import static javaguru.gravitrips.Chip.*;
 import static javaguru.gravitrips.GameResult.*;
 
@@ -50,7 +51,6 @@ public class GameField {
         System.out.println("");
     }
 
-
     public boolean fieldCheck(Chip chip) {
         for (int i = 0; i < COLUMNS; i++) {
             if (checkSingleColumn(i, chip)) {
@@ -64,15 +64,6 @@ public class GameField {
         }
         return false;
     }
-
-    /*public boolean horizontalCheck(Chip chip) {
-        for (int i = 0; i < ROWS; i++) {
-            if (checkSingleRow(i, chip )) {
-                return true;
-            }
-        }
-        return false;
-    }*/
 
     public boolean checkSingleColumn(int j, Chip chip) {
         int count = 0;
@@ -88,7 +79,6 @@ public class GameField {
         }
         return false;
     }
-
 
     public boolean checkSingleRow(int i, Chip chip) {
         int count = 0;
@@ -106,8 +96,6 @@ public class GameField {
         return false;
     }
 
-
-
     public boolean checkDraw() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -118,7 +106,6 @@ public class GameField {
         }
         return true;
     }
-
 
     public GameResult anyWinConditionMet() {
         if (fieldCheck(X)) {
@@ -131,22 +118,32 @@ public class GameField {
         return NOT_FINISHED;
     }
 
+    public boolean isEmptyCell(int j) {
+        for (int i = 0; i < ROWS; i++) {
+            if (gameField[i][j] == EMPTY) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public boolean fillCell(int j, Chip chip){
-        boolean cellFilled = false;
+
+    public int getCell(int j) {
+        boolean emptyCellReturned = false;
         int i = 5;
         do {
-
-            if (i < 0) {
-                System.out.println("");
-                System.out.println("This column is full");
-                
-            } else if (EMPTY == (gameField[i][j])) {
-                gameField[i][j] = chip;
-                cellFilled = true;
+            if (gameField[i][j] == EMPTY) {
+                emptyCellReturned = true;
+            }else{
+                i--;
             }
-            i--;
-        } while (!cellFilled);
+        }while(!emptyCellReturned);
+        return i;
     }
+
+    public void setCell(int i, int j, Chip chip){
+        gameField[i][j] = chip;
+    }
+
 }
 

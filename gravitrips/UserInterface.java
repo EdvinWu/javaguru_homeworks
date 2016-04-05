@@ -1,9 +1,18 @@
 package javaguru.gravitrips;
 
-/**
- * Created by Edwin on 2016.04.02..
- */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import static javaguru.gravitrips.Chip.*;
+
+
 public class UserInterface {
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private Player player1;
+    private Player player2;
+
 
     public void menuOptions() {
         System.out.println("Choose next option");
@@ -27,4 +36,83 @@ public class UserInterface {
         System.out.println("");
 
     }
+
+    public void createPlayers() {
+        String userChoice;
+        boolean validAnswer = false;
+        gameVariations();
+        do {
+            try {
+                userChoice = reader.readLine();
+            } catch (IOException e) {
+                System.out.println("Something went wrong, please check your entry");
+                userChoice = "";
+            }
+            switch (userChoice) {
+                case "1":
+                    player1 = new HumanPlayer(X);
+                    player2 = new HumanPlayer(O);
+                    validAnswer = true;
+                    break;
+
+                case "2":
+                    player1 = new HumanPlayer(X);
+                    player2 = new PlayerAi(O);
+                    validAnswer = true;
+                    break;
+
+                case "3":
+                    player1 = new PlayerAi(X);
+                    player2 = new PlayerAi(O);
+                    validAnswer = true;
+                    break;
+
+                default:
+                    System.out.println("Wrong entry, please try again");
+            }
+        }
+        while (!validAnswer);
+    }
+
+    public void menu() {
+        menuOptions();
+        String firstEntry;
+        boolean noneOptionChosen = true;
+        do {
+            try {
+                firstEntry = reader.readLine();
+            } catch (IOException e) {
+                System.out.println("Something went wrong, please check your entry");
+                firstEntry = "";
+            }
+            switch (firstEntry) {
+                case "1":
+                    createPlayers();
+                    Game igra = new Game(player1, player2);
+                    igra.pve();
+                    menu();
+                    noneOptionChosen = false;
+                    break;
+
+                case "2":
+                    gameDescription();
+                    menu();
+                    noneOptionChosen = false;
+                    break;
+
+                case "3":
+                    System.out.println("Bye");
+                    noneOptionChosen = false;
+                    break;
+
+                default:
+                    System.out.println("Wrong entry");
+                    menuOptions();
+
+            }
+        }
+        while (noneOptionChosen);
+    }
+
+
 }

@@ -18,23 +18,16 @@ public class PlayerAi implements Player {
         this.chip = chip;
     }
 
-    @Override
-    public void makeTurn(GameField pole ) {
-        boolean turnLoop = false;
-        Chip[][] field = pole.getGameField();
-        int i = 5;
-        int j = random.nextInt(7);
-        do {
 
-            if (i < 0) {
-                i = 5;
-                j = random.nextInt(6);
-            } else if ((field[i][j]) == EMPTY) {
-                field[i][j] = chip;
-                turnLoop = true;
-            }
-            i--;
-        } while (!turnLoop);
-    }
+   @Override
+   public void makeTurn(GameField pole){
+       int j = random.nextInt(7);
+       if(pole.isEmptyCell(j)){
+           pole.setCell(pole.getCell(j),j,chip);
+       }else{
+           makeTurn(pole);
+       }
+
+   }
 
 }

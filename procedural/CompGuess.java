@@ -1,4 +1,4 @@
-package javaguru;
+package javaguru.procedural;
 
 import java.io.BufferedReader;
 import java.io.IOException;
