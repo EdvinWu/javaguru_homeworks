@@ -8,6 +8,7 @@ public class Game {
     private GameField pole = new GameField();
     private Player player1;
     private Player player2;
+    private Player currentPlayer;
 
 
     public Game(Player player1, Player player2) {
@@ -36,30 +37,34 @@ public class Game {
     }
 
     public void pve() {
-        pole.cleanField();
+        currentPlayer = player1;
         boolean gameIsOver;
         do {
-            gameIsOver = oneTurn(player1, player2);
+            gameIsOver = oneTurn(currentPlayer);
         } while (!gameIsOver);
     }
 
-    public boolean oneTurn(Player firstTurnPlayer, Player secondTurnPlayer) {
-        firstTurnPlayer.makeTurn(pole);
+    public boolean oneTurn(Player currentPlayer) {
+        currentPlayer.makeTurn(pole);
         pole.printField();
-        if (checks()){
-            return true;
-        }
-        secondTurnPlayer.makeTurn(pole);
-        pole.printField();
+        switchPlayers();
         return checks();
     }
 
-    public boolean checks(){
+    public boolean checks() {
         if (isWinner(pole.anyWinConditionMet())) {
             isWinnerText(pole.anyWinConditionMet());
             return true;
         }
         return false;
+    }
+
+    private void switchPlayers() {
+        if ( currentPlayer == player2){
+            currentPlayer = player1;
+        }else{
+            currentPlayer = player2;
+        }
     }
 
 }
